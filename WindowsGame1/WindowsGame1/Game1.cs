@@ -15,6 +15,7 @@ namespace WindowsGame1
 {
    /// <summary>
    /// This is the main type for your game
+   /// default size 800x600
    /// </summary>
    public class Game1 : Microsoft.Xna.Framework.Game
    {
@@ -25,6 +26,7 @@ namespace WindowsGame1
       Hand RightHand, LeftHand;
       const int maxSkells = 6;
       Skeleton[] allSkells = new Skeleton[maxSkells];
+      List<Boat> Boats;
 
       public Game1()
       {
@@ -43,9 +45,11 @@ namespace WindowsGame1
       {
          double UpArm = Math.Sqrt(((Elbow.X - Shoulder.X) * (Elbow.X - Shoulder.X)) + ((Elbow.Y - Shoulder.Y) * (Elbow.Y - Shoulder.Y)) + ((Elbow.Depth - Shoulder.Depth) * (Elbow.Depth - Shoulder.Depth)));
          double forArmD = (Elbow.Depth - hand.Depth);
-         if (hand.Y < (.8 * Elbow.Y) || Elbow.Y < (Shoulder.Y + (UpArm / 2)))
+         //(hand.Y < (.8 * Elbow.Y) || Elbow.Y < (Shoulder.Y + (UpArm / 2)))
+         //Console.Write(" {0}, {1}, {2}\n", hand.Depth > Elbow.Depth * 0.92, hand.Depth, Elbow.Depth);
+         if (/*(hand.Depth > Elbow.Depth * 0.92) /*&& (hand.Y < (1.3 * Elbow.Y))*/ Shoulder.Depth >= (hand.Depth + 250)  ) 
          {
-            if (forArmD < (0.8 * UpArm))
+            if (Shoulder.Depth >= (hand.Depth + 325))
             {
                obj.pressed = true;
             }
@@ -56,9 +60,9 @@ namespace WindowsGame1
          }
          else
          {
-            Console.Write("{0} Rest\n", name);
+            //Console.Write("{0} Rest\n", name);
          }
-         Console.Write("UpArm: {0}, ForArmD: {1}, Y: {2}\n", UpArm, forArmD, hand.Y);
+         //Console.Write("UpArm: {0}, ForArmD: {1}, Y: {2}\n", UpArm, forArmD, hand.Y);
 
       }
 
@@ -103,6 +107,7 @@ namespace WindowsGame1
                kinect.AllFramesReady += new EventHandler<AllFramesReadyEventArgs>(kinect_AllFramesReady);
             }
          }
+         Boats = new List<Boat>();
          base.Initialize();
       }
 
@@ -117,6 +122,12 @@ namespace WindowsGame1
          texture = Content.Load<Texture2D>(@"images/wilsun");
          RightHand = new Hand(new Vector2(200, 300), texture);
          LeftHand = new Hand(new Vector2(200, 300), texture);
+         texture = Content.Load<Texture2D>(@"images/bert");
+         for (int i = 0; i < 4; i++)
+         {
+            Boats.Add(new Boat(new Vector2(100*i,100*i), texture,0,0));
+
+         }
 
          // TODO: use this.Content to load your game content here
       }
@@ -128,7 +139,7 @@ namespace WindowsGame1
       protected override void UnloadContent()
       {
          // TODO: Unload any non ContentManager content here
-         kinect.Stop();
+         //kinect.Stop();
       }
 
       /// <summary>
@@ -160,7 +171,12 @@ namespace WindowsGame1
             this.Exit();
 
          // TODO: Add your update logic here
-         
+         foreach (Boat b in Boats)
+         {
+            b.act(Boats);
+         }
+         LeftHand.act(Boats);
+         RightHand.act(Boats);
          base.Update(gameTime);
          
       }
@@ -177,6 +193,10 @@ namespace WindowsGame1
          spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
          RightHand.Draw(spriteBatch);
          LeftHand.Draw(spriteBatch);
+         foreach( Boat b in Boats)
+         {
+            b.Draw(spriteBatch);
+         }
          base.Draw(gameTime);
          spriteBatch.End();
       }

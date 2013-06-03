@@ -19,12 +19,40 @@ namespace WindowsGame1
       private Texture2D m_texture;
       private DepthImagePoint P;
       public bool pressed = false;
+      private Boat selected;
 
 
       public void updateHand (DepthImagePoint newP){
          P = newP;
          m_position.X = P.X;
          m_position.Y = P.Y;
+      }
+
+      public void act(List<Boat> Boats)
+      {
+
+
+         if (selected == null && pressed == true)
+         {
+            foreach (Boat b in Boats)
+            {
+               //make selection detect ownership
+               if ( (b.m_position.X + (b.m_texture.Width / 2) >= m_position.X) && (b.m_position.X - (b.m_texture.Width / 2) <= m_position.X)
+                  && (b.m_position.Y + (b.m_texture.Height / 2) >= m_position.Y) && (b.m_position.Y - (b.m_texture.Height / 2) <= m_position.Y) )
+               {
+                  
+                  selected = b;
+                  break;
+               }
+
+            }
+         }
+         else if (pressed==false && selected!= null)
+         {
+            selected.m_destination = new Vector2(m_position.X, m_position.Y);
+            selected = null;
+         }
+
       }
       public Hand(Vector2 position, Texture2D texture)
         {
