@@ -35,7 +35,7 @@ namespace WindowsGame1
          m_position = position;
          m_destination = position;
          m_texture = texture;
-         direction = 0;
+         direction = 2;
          Color[] colors = new Color[texture.Width * texture.Height];
          texture.GetData<Color>(colors);
          this.owner = owner;
@@ -116,12 +116,12 @@ namespace WindowsGame1
             cooldown--;
 
          Boat closestAttackableBoat = null;
-         float closestBoatDistance = 0.0;
+         float closestBoatDistance = 0f;
          foreach(Boat b in Boats)
          {
             if (b != this)
             {
-               if (b.owner != this.owner && this.cooldown == 0)
+               if (b.owner != this.owner && b.health > 0 &&this.cooldown == 0)
                {
                   float tempDistance = Vector2.Distance(b.m_position, this.m_position);
                   if (tempDistance <= this.range)
@@ -154,6 +154,7 @@ namespace WindowsGame1
             }
             this.cooldown = this.attackTime;
          }
+
       }
 
 
@@ -168,12 +169,12 @@ namespace WindowsGame1
          {
              case 0: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
              case 1: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 2: s.Draw(m_texture, m_position, null, Color.White, 90f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 3: s.Draw(m_texture, m_position, null, Color.White, 90f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 4: s.Draw(m_texture, m_position, null, Color.White, 180f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 5: s.Draw(m_texture, m_position, null, Color.White, 180f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 6: s.Draw(m_texture, m_position, null, Color.White, 270f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 7: s.Draw(m_texture, m_position, null, Color.White, 270f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 2: s.Draw(m_texture, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 3: s.Draw(m_texture, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 4: s.Draw(m_texture, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 5: s.Draw(m_texture, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 6: s.Draw(m_texture, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 7: s.Draw(m_texture, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
          }
       }
 

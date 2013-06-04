@@ -49,8 +49,45 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="images\bert.png">
-      <Name>bert</Name>
+    <Compile Include="images\p1battleship.png">
+      <Name>p1battleship</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\p1destroyer.png">
+      <Name>p1destroyer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\p1sub.png">
+      <Name>p1sub</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\p2battleship.png">
+      <Name>p2battleship</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\p2destroyer.png">
+      <Name>p2destroyer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\p2sub.png">
+      <Name>p2sub</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="images\p1wins.png">
+      <Name>p1wins</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="images\p2wins.png">
+      <Name>p2wins</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

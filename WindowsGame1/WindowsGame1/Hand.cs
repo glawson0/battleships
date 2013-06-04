@@ -20,7 +20,7 @@ namespace WindowsGame1
       private DepthImagePoint P;
       public bool pressed = false;
       private Boat selected;
-
+      private int player;
 
       public void updateHand (DepthImagePoint newP){
          P = newP;
@@ -31,14 +31,14 @@ namespace WindowsGame1
       public void act(List<Boat> Boats)
       {
 
-
          if (selected == null && pressed == true)
          {
             foreach (Boat b in Boats)
             {
                //make selection detect ownership
                if ( (b.m_position.X + (b.m_texture.Width / 2) >= m_position.X) && (b.m_position.X - (b.m_texture.Width / 2) <= m_position.X)
-                  && (b.m_position.Y + (b.m_texture.Height / 2) >= m_position.Y) && (b.m_position.Y - (b.m_texture.Height / 2) <= m_position.Y) )
+                  && (b.m_position.Y + (b.m_texture.Height / 2) >= m_position.Y) && (b.m_position.Y - (b.m_texture.Height / 2) <= m_position.Y) 
+                  && b.owner == player)
                {
                   
                   selected = b;
@@ -54,12 +54,13 @@ namespace WindowsGame1
          }
 
       }
-      public Hand(Vector2 position, Texture2D texture)
+      public Hand(Vector2 position, Texture2D texture, int player)
         {
             m_position = position;
             m_texture = texture;
             Color[] colors = new Color[texture.Width * texture.Height];
             texture.GetData<Color>(colors);
+            this.player = player;
         }
 
       public void Draw(SpriteBatch s)
