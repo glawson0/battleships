@@ -164,8 +164,17 @@ namespace WindowsGame1
 
       public void Draw(SpriteBatch s)
       {
-         s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2),
-                1f, SpriteEffects.None, 0f);
+         switch (this.direction)
+         {
+             case 0: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 1: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 2: s.Draw(m_texture, m_position, null, Color.White, 90f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 3: s.Draw(m_texture, m_position, null, Color.White, 90f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 4: s.Draw(m_texture, m_position, null, Color.White, 180f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 5: s.Draw(m_texture, m_position, null, Color.White, 180f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 6: s.Draw(m_texture, m_position, null, Color.White, 270f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+             case 7: s.Draw(m_texture, m_position, null, Color.White, 270f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+         }
       }
 
 
