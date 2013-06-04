@@ -171,7 +171,14 @@ namespace WindowsGame1
             this.Exit();
 
          // TODO: Add your update logic here
+         
+         // public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source)
+         // {
+         //    Random rnd = new Random();
+         //    return source.OrderBy<T, int>((item) => rnd.Next());
+         // }
          boats = boats.OrderBy(item=>rnd.next());
+         
          foreach (Boat b in Boats)
          {
             b.act(Boats);
