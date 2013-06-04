@@ -171,6 +171,7 @@ namespace WindowsGame1
             this.Exit();
 
          // TODO: Add your update logic here
+         boats = boats.OrderBy(item=>rnd.next());
          foreach (Boat b in Boats)
          {
             b.act(Boats);
