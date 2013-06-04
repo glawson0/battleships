@@ -162,9 +162,11 @@ namespace WindowsGame1
       {
          // Create a new SpriteBatch, which can be used to draw textures.
          spriteBatch = new SpriteBatch(GraphicsDevice);
-         texture = Content.Load<Texture2D>(@"images/wilsun");
+         texture = Content.Load<Texture2D>(@"images/p1target");
          P1RightHand = new Hand(new Vector2(200, 300), texture,0);
          P1LeftHand = new Hand(new Vector2(200, 300), texture,0);
+
+         texture = Content.Load<Texture2D>(@"images/p2target");
          P2RightHand = new Hand(new Vector2(100, 300), texture,1);
          P2LeftHand = new Hand(new Vector2(100, 300), texture,1);
          
