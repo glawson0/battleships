@@ -18,23 +18,26 @@ namespace WindowsGame1
       public Vector2 m_position;
       public Vector2 m_destination;
       public Texture2D m_texture;
+      public Texture2D m_attack;
       public int direction; // 0 north, 1 northeast, 2 east ...
       public int health;
       public int armor;
       public int dmg1;
       public int dmg2;
       public int dmg3;
-      public int range;
+      public int range = 50;
       public int owner;
+      public int attackAnim;
       public int cooldown;
       public int attackTime;
 
       // type: 0 = battleship, 1 = destroyer, 2 = submarine
-      public Boat(Vector2 position, Texture2D texture, int type, int owner)
+      public Boat(Vector2 position, Texture2D texture, Texture2D attackTexture, int type, int owner)
       {
          m_position = position;
          m_destination = position;
          m_texture = texture;
+         m_attack = attackTexture;
          direction = 2;
          Color[] colors = new Color[texture.Width * texture.Height];
          texture.GetData<Color>(colors);
@@ -42,7 +45,6 @@ namespace WindowsGame1
          cooldown = 0;
          health = 30;
          attackTime = 50;
-         range = 20;
          switch (type)
          {
             case 0:
@@ -112,7 +114,9 @@ namespace WindowsGame1
          if (up && !down && left && !right)
             direction = 7;
 
-         if (cooldown != 0)
+         if (attackAnim != 0)
+             attackAnim--;
+         if (cooldown != 0) 
             cooldown--;
 
          Boat closestAttackableBoat = null;
@@ -153,6 +157,7 @@ namespace WindowsGame1
                   break;
             }
             this.cooldown = this.attackTime;
+            this.attackAnim = 30;
          }
 
       }
@@ -165,17 +170,34 @@ namespace WindowsGame1
 
       public void Draw(SpriteBatch s)
       {
-         switch (this.direction)
-         {
-             case 0: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 1: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 2: s.Draw(m_texture, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 3: s.Draw(m_texture, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 4: s.Draw(m_texture, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 5: s.Draw(m_texture, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 6: s.Draw(m_texture, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-             case 7: s.Draw(m_texture, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
-         }
+          if (attackAnim <= 0)
+          {
+              switch (this.direction)
+              {
+                  case 0: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 1: s.Draw(m_texture, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 2: s.Draw(m_texture, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 3: s.Draw(m_texture, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 4: s.Draw(m_texture, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 5: s.Draw(m_texture, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 6: s.Draw(m_texture, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 7: s.Draw(m_texture, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+              }
+          }
+          else
+          {
+              switch (this.direction)
+              {
+                  case 0: s.Draw(m_attack, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 1: s.Draw(m_attack, m_position, null, Color.White, 0f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 2: s.Draw(m_attack, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 3: s.Draw(m_attack, m_position, null, Color.White, 1.57f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 4: s.Draw(m_attack, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 5: s.Draw(m_attack, m_position, null, Color.White, 3.14f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 6: s.Draw(m_attack, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+                  case 7: s.Draw(m_attack, m_position, null, Color.White, 4.71f, new Vector2(m_texture.Width / 2, m_texture.Height / 2), 1f, SpriteEffects.None, 0f); break;
+              }
+          }
       }
 
 

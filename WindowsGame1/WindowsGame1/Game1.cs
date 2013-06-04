@@ -25,6 +25,7 @@ namespace WindowsGame1
       SpriteBatch spriteBatch;
       KinectSensor kinect;
       Texture2D texture;
+      Texture2D textureAttack;
       Hand P1RightHand, P1LeftHand, P2RightHand, P2LeftHand;
       const int maxSkells = 6;
       Skeleton[] allSkells = new Skeleton[maxSkells];
@@ -162,37 +163,43 @@ namespace WindowsGame1
       {
          // Create a new SpriteBatch, which can be used to draw textures.
          spriteBatch = new SpriteBatch(GraphicsDevice);
-         texture = Content.Load<Texture2D>(@"images/p1target");
+         texture = Content.Load<Texture2D>(@"images/p2target");
          P1RightHand = new Hand(new Vector2(200, 300), texture,0);
          P1LeftHand = new Hand(new Vector2(200, 300), texture,0);
 
-         texture = Content.Load<Texture2D>(@"images/p2target");
+         texture = Content.Load<Texture2D>(@"images/p1target");
          P2RightHand = new Hand(new Vector2(100, 300), texture,1);
          P2LeftHand = new Hand(new Vector2(100, 300), texture,1);
          
          texture = Content.Load<Texture2D>(@"images/p1battleship");
-         Boats.Add(new Boat(new Vector2(100,100), texture, 0, 0));
-         Boats.Add(new Boat(new Vector2(100,500), texture, 0, 0));
+         textureAttack = Content.Load<Texture2D>(@"images/p1battleshipshooting");
+         Boats.Add(new Boat(new Vector2(100,100), texture, textureAttack, 0, 0));
+         Boats.Add(new Boat(new Vector2(100,500), texture, textureAttack, 0, 0));
 
          texture = Content.Load<Texture2D>(@"images/p1destroyer");
-         Boats.Add(new Boat(new Vector2(50, 100), texture, 0, 0));
-         Boats.Add(new Boat(new Vector2(50, 500), texture, 0, 0));
+         textureAttack = Content.Load<Texture2D>(@"images/p1destroyershooting");
+         Boats.Add(new Boat(new Vector2(50, 100), texture, textureAttack, 0, 0));
+         Boats.Add(new Boat(new Vector2(50, 500), texture, textureAttack, 0, 0));
 
          texture = Content.Load<Texture2D>(@"images/p1sub");
-         Boats.Add(new Boat(new Vector2(50, 100), texture, 0, 0));
-         Boats.Add(new Boat(new Vector2(50, 500), texture, 0, 0));
+         textureAttack = Content.Load<Texture2D>(@"images/p1subshooting");
+         Boats.Add(new Boat(new Vector2(50, 100), texture, textureAttack, 0, 0));
+         Boats.Add(new Boat(new Vector2(50, 500), texture, textureAttack, 0, 0));
 
          texture = Content.Load<Texture2D>(@"images/p2battleship");
-         Boats.Add(new Boat(new Vector2(600, 100), texture, 0, 1));
-         Boats.Add(new Boat(new Vector2(600, 500), texture, 0, 1));
+         textureAttack = Content.Load<Texture2D>(@"images/p2battleshipshooting");
+         Boats.Add(new Boat(new Vector2(600, 100), texture, textureAttack, 0, 1));
+         Boats.Add(new Boat(new Vector2(600, 500), texture, textureAttack, 0, 1));
 
          texture = Content.Load<Texture2D>(@"images/p2destroyer");
-         Boats.Add(new Boat(new Vector2(550, 100), texture, 0, 1));
-         Boats.Add(new Boat(new Vector2(550, 500), texture, 0, 1));
+         textureAttack = Content.Load<Texture2D>(@"images/p2destroyershooting");
+         Boats.Add(new Boat(new Vector2(550, 100), texture, textureAttack, 0, 1));
+         Boats.Add(new Boat(new Vector2(550, 500), texture, textureAttack, 0, 1));
 
          texture = Content.Load<Texture2D>(@"images/p2sub");
-         Boats.Add(new Boat(new Vector2(500, 100), texture, 0, 1));
-         Boats.Add(new Boat(new Vector2(500, 500), texture, 0, 1));
+         textureAttack = Content.Load<Texture2D>(@"images/p2subshooting");
+         Boats.Add(new Boat(new Vector2(500, 100), texture, textureAttack, 0, 1));
+         Boats.Add(new Boat(new Vector2(500, 500), texture, textureAttack, 0, 1));
          // TODO: use this.Content to load your game content here
       }
 
@@ -295,11 +302,11 @@ namespace WindowsGame1
 
          if (playerWins == 2) {
              texture = Content.Load<Texture2D>(@"images/p2wins");
-            spriteBatch.Draw(texture, new Vector2(350,450), null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, new Vector2(550,400), null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), 1f, SpriteEffects.None, 0f);
          }
          if (playerWins == 1) {
             texture = Content.Load<Texture2D>(@"images/p1wins");
-            spriteBatch.Draw(texture, new Vector2(350,450), null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, new Vector2(550,400), null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), 1f, SpriteEffects.None, 0f);
          }
 
          base.Draw(gameTime);
