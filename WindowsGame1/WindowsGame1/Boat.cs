@@ -25,15 +25,18 @@ namespace WindowsGame1
       public int dmg1;
       public int dmg2;
       public int dmg3;
-      public int range = 50;
+      public int range = 150;
       public int owner;
       public int attackAnim;
       public int cooldown;
       public int attackTime;
 
+       public SoundEffectInstance soundEffect;
+
       // type: 0 = battleship, 1 = destroyer, 2 = submarine
-      public Boat(Vector2 position, Texture2D texture, Texture2D attackTexture, int type, int owner)
+      public Boat(Vector2 position, Texture2D texture, Texture2D attackTexture, int type, int owner, SoundEffect soundEffect)
       {
+         this.soundEffect = soundEffect.CreateInstance();
          m_position = position;
          m_destination = position;
          m_texture = texture;
@@ -156,6 +159,7 @@ namespace WindowsGame1
                   closestAttackableBoat.health -= this.dmg3;
                   break;
             }
+            this.soundEffect.Play();
             this.cooldown = this.attackTime;
             this.attackAnim = 30;
          }
